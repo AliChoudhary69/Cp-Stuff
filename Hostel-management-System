@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+char y; int choice;
+
+do
+{
+cout<<"_______Hostel Management System_______\n\n\n";
+cout<<"Press '1' to enter new users\n";
+cout<<"Press '2' to see rooms available\n";
+cout<<"Press '3' to calculate total monthly expances\n";
+cout<<"Press '4' for monthly fee of users\n";
+cout<<"Press '5' to calculate total monthly profit\n\n";
+cout<<"Selected option: ";
+cin>>choice;
+
+//validation
+while(cin.fail()||choice<1||choice>5)
+{
+	cout<<"Error...please enter a numeric value!\n";
+	cin.clear();  cin.ignore();
+	cin>>choice;
+}
+cout<<"____________________________________________\n\n";
+
+switch(choice)
+{
+	case 1:
+	//function Enter new user
+	break;
+	
+	case 2:
+	//Function Rooms available
+	break;
+
+	case 3:
+	//Function Total monthly Expences
+	break;
+
+	case 4:
+	//User monthly fee
+	break;
+
+	case 5:
+	//Function Total profit
+	break;
+}
+
+cout<<"Press 'y' to continue the program...\n";
+cin>>y;
+}while(y=='y'||y=='Y');
+
+system ("Pause");
+}
+
+
+

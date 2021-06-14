@@ -1,61 +1,382 @@
-#include <iostream>
-
+#include<iostream>
+#include<string>
 using namespace std;
+
+class hostel {
+
+public:
+    int totalRoom = 17;
+    int totalStudents = 50;
+    bool twoSeaterRoom[5][2];
+    bool threeSeaterRoom[10][3];
+    bool fiveSeaterRoom[2][5];
+    bool dues[50];
+    bool ac[50];
+    bool laundry[50];
+    cout << "Enter age: ";
+    cin >> p.age;
+    cout << "Enter salary: ";
+    cin >> p.salary;
+
+    string studentName[50];
+    int studentRollNumber[50];
+    int roomRent[50];
+    string cnic[50];
+
+
+    void enterNewUser();
+    void roomsAvailable();
+    void assignValues();
+    void allocateRoom(int);
+    void feeSubmission();
+    int calculateRent(int);
+
+};
+
+
+
+
+
+
+
+
+
+
+void hostel::roomsAvailable()
+{
+    int count = 0;
+
+    cout << "2 Seater Rooms:\n";
+
+    for (int i = 0; i < 5; i++)
+    {
+
+        for (int j = 0; j < 2; j++)
+        {
+            if (twoSeaterRoom[i][j] == 1)
+                count++;
+        }
+        cout << "A" << i + 1 << ": " << count << " Occupied   || " << 2 - count << " available\n";
+        count = 0;
+    }
+    cout << "______________________\n";
+
+    cout << "3 Seater Rooms:\n";
+    for (int i = 0; i < 10; i++)
+    {
+
+        for (int j = 0; j < 3; j++)
+        {
+            if (threeSeaterRoom[i][j] == 1)
+                count++;
+        }
+        cout << "B" << i + 1 << ": " << count << " Occupied   || " << 3 - count << " available\n";
+        count = 0;
+    }
+    cout << "______________________\n\n";
+
+    cout << "5 Seater Rooms:\n";
+
+    for (int i = 0; i < 2; i++)
+    {
+
+        for (int j = 0; j < 5; j++)
+        {
+            if (fiveSeaterRoom[i][j] == 1)
+                count++;
+        }
+        cout << "C" << i + 1 << ": " << count << " Occupied   || " << 5 - count << " available\n";
+        count = 0;
+    }
+    cout << "______________________\n\n";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void hostel::assignValues()
+{
+
+    for (int i = 1; i <= 5; i++)
+    {
+
+        for (int j = 0; j < 2; j++)
+        {
+            twoSeaterRoom[i][j] = 0;
+        }
+    }
+
+    for (int i = 1; i <= 10; i++)
+    {
+
+        for (int j = 0; j < 3; j++)
+        {
+            threeSeaterRoom[i][j] = 0;
+        }
+
+    }
+
+    for (int i = 1; i <= 2; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            fiveSeaterRoom[i][j] = 0;
+        }
+    }
+     for(int i=0; i<50;i++)
+    {
+      dues[i]=0;
+      laundry[i]=0;
+      ac[i]=0;
+    }
+}
+
+
+
+
+int hostel::calculateRent(int idNum)
+{
+int x,y;
+
+if(ac[idNum-1]==1)
+x=2000;
+else
+x=0;
+
+if(laundry[idNum-1]==1)
+y=3000;
+else
+y=0;
+
+return roomRent[idNum-1]+x+y;
+}
+
+
+
+
+void hostel::feeSubmission()
+{
+
+int idNum; char x;
+cout<<"Please enter your id number:";
+cin>>idNum;   cout<<endl;
+
+cout<<"Student Name: "<<studentName[idNum-1]<<endl;
+cout<<"CNIC: "<<cnic[idNum-1]<<endl;
+
+if(dues[idNum-1]==0)
+{
+    
+cout<<"Monthly charges: "<<calculateRent(idNum)<<"\n\n";
+cout<<"Press 'p' if fee is recieved ==> ";   cin>>x;
+if(x=='p')
+{
+dues[idNum-1]=1;
+cout<<"Rent recieved!\n\n";
+}
+else
+cout<<"Rent not recieved!\n\n";
+}
+
+else
+{
+  cout<<"Fee Status: PAID\n\n";
+}
+}
+
+
+
+
+
+
+
+
+
+void hostel::allocateRoom(int numberOfStudents)
+{
+    int x = 0, room;
+    string choose;
+    int idNum, k=0, count = 0;
+    bool flag = 0;
+    cout << "================================================================\n";
+	cout << "                    \nRooms Allocation\n";
+    cout << "________________________________________________________________\n\n";
+
+
+    while (x < numberOfStudents)
+    {
+        cout << "Assign student id number (1-50)\nID = ";
+        cin >> idNum;
+        studentRollNumber[idNum-1] = idNum;
+        cout << "Enter Student name: ";
+        cin >> studentName[idNum-1];   cout << endl;
+        cout<<"Please enter your cnic in the formate (*****-*******-*) \n";
+        cin>>cnic[idNum-1]; cout<<endl;
+
+        
+
+        cout << "Please Choose the room \n1 : 2 Seater \n2 : 3 Seater \n3 : 5 Seater\n";
+        cout<<"===>"; cin >> room; cout << endl;
+        cout<<"Do you want A.C\n";
+        cout<<"===>";    cin>>choose;
+
+
+        if(choose=="yes"||choose=="Yes"||choose=="YES")
+        ac[idNum-1]=1;
+        //else
+        //continue;
+
+        cout<<"Do you want laundry?\n";
+        cout<<"===>";   cin>>choose;
+
+        if(choose=="yes"||choose=="Yes"||choose=="YES")
+        laundry[idNum-1]=1;
+        //else
+        //continue;
+        cout<<endl;
+
+        if (room == 2) 
+        {
+            k = 5; roomRent[idNum-1] = 10000;
+        }
+        if (room == 3)
+        {
+            k = 10; roomRent[idNum-1] = 150000;
+        }
+        if (room == 5) 
+        {
+            k = 2;  roomRent[idNum-1] = 20000;
+        }
+
+        for (int i = 0; i < k; i++)
+        {
+            for (int j = 0; j < room; j++)
+            {
+                if (room == 2 && twoSeaterRoom[i][j] == 0)
+                {
+
+                    twoSeaterRoom[i][j] = 1;
+                    count = i;
+                    flag = 1;
+
+                }
+
+                if (room == 3 && threeSeaterRoom[i][j] == 0)
+                {
+                    threeSeaterRoom[i][j] = 1;
+                    count = 1;
+                    flag = 1;
+                }
+
+                if (room == 5 && fiveSeaterRoom[i][j] == 0)
+                {
+                    fiveSeaterRoom[i][j] = 1;
+                    count = i;
+                    flag = 1;
+                }
+                if (flag == 1)
+                    break;
+            }
+            if (flag == 1)
+                break;
+        }
+        flag = 0;
+        cout << "\n\n";
+        if (room == 2)
+            cout << "Room 'A";
+        if (room == 3)
+            cout << "Room 'B";
+        if (room == 5)
+            cout << "Room 'C";
+
+        cout << count << "' Allocated to Student: " << studentName[idNum-1] << endl;
+        cout << "Monthly room Rent: " << roomRent[idNum-1] << "\n";
+        cout << "              _\n\n";
+        x++;
+    }
+
+}
+
+
+
+
+
+
+
 
 int main()
 {
 
-char y; int choice;
+    hostel ob1;
+    char y; int choice, x;
 
-do
-{
-cout<<"_______Hostel Management System_______\n\n\n";
-cout<<"Press '1' to enter new users\n";
-cout<<"Press '2' to see rooms available\n";
-cout<<"Press '3' to calculate total monthly expances\n";
-cout<<"Press '4' for monthly fee of users\n";
-cout<<"Press '5' to calculate total monthly profit\n\n";
-cout<<"Selected option: ";
-cin>>choice;
+    ob1.assignValues();
+    do
+    {
 
-//validation
-while(cin.fail()||choice<1||choice>5)
-{
-	cout<<"Error...please enter a numeric value!\n";
-	cin.clear();  cin.ignore();
-	cin>>choice;
+
+        cout << "================================================================\n";
+        cout << "                 Hostel Management System\n";
+        cout << "________________________________________________________________\n\n";
+
+    	cout << "\nPress '1' to see rooms available\n";
+        cout << "Press '2' To Enter new user\n";
+        cout << "Press '3' to show Rent status\n";
+        cout<<"Press '4' to review rates\n\n";
+        cout << "_________________________________________________________________\n";
+
+        cout << "\nSelected option: ";
+        cout<<"===>"; cin >> choice;
+
+        //validation
+        while (cin.fail() || choice < 1 || choice>4)
+        {
+            cout << "Error...please enter the correct option!\n";
+            cin.clear();  cin.ignore();
+            cout << "\nSelected option: ";
+            cout<<"===>";  cin >> choice;
+        }
+        cout << "================================================================\n";
+
+        switch (choice)
+        {
+        case 1:
+            ob1.roomsAvailable();
+            break;
+           
+        case 2:
+            cout << "How many students do you want to enter?\n";
+            cin >> x;  cout << endl;
+            ob1.allocateRoom(x);
+            break;
+
+           
+        case 3:
+            ob1.feeSubmission();
+            break;
+
+        case 4:
+        cout<<"2 Seater room: RS 10000\n3 Seater room: RS 15000\n5 Seater room: RS 20000\n\n";
+        cout<<"A.C charges: RS 2000\nLaundry charges: RS 3000\n\n";
+        break;
+
+        default: ;
+        }
+
+        cout << "Press 'y' to go back to Main Menu...\n";
+        cout<<"==>";      cin >> y;
+        system("clear");
+    } while (y == 'y' || y == 'Y');
+
+    system("Pause");
+    return 0;
+   
 }
-cout<<"____________________________________________\n\n";
-
-switch(choice)
-{
-	case 1:
-	//function Enter new user
-	break;
-	
-	case 2:
-	//Function Rooms available
-	break;
-
-	case 3:
-	//Function Total monthly Expences
-	break;
-
-	case 4:
-	//User monthly fee
-	break;
-
-	case 5:
-	//Function Total profit
-	break;
-}
-
-cout<<"Press 'y' to continue the program...\n";
-cin>>y;
-}while(y=='y'||y=='Y');
-
-system ("Pause");
-}
-
-
-
